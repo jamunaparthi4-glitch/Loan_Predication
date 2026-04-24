@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loan Prediction</title>
+<style>
+    * {margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', sans-serif;    }
+
+    body {  height: 100vh;
+           display: flex;
+        justify-content: center;
+        align-items: center;
+     background: #e0e4e8;   }
+
+    .container {background: #ffffff;
+        padding: 30px;
+        border-radius: 12px;
+        width: 360px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        text-align: center;}
+
+    h2 {  margin-bottom: 20px;
+        color: #333; }
+
+    label {  display: block;
+        text-align: left;
+        margin-top: 12px;
+        font-weight: 500;
+        color: #555; }
+
+    input, select { width: 100%;
+        padding: 10px;
+        margin-top: 6px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        outline: none;
+        transition: 0.2s; }
+
+    input:focus, select:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 5px rgba(102,126,234,0.3);}
+
+    button { margin-top: 20px;
+        width: 100%;
+        padding: 12px;
+        background: #667eea;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s; }
+
+    button:hover {background: #5a67d8; }
+
+    h3 {  margin-top: 20px;
+        font-weight: bold;  }
+
+    .approved {
+        color: green;
+    }
+
+    .rejected {
+        color: red;
+    }
+</style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Loan Approval Prediction</h2>
+
+        <form action="/predict" method="post">
+
+            <label>Gender:</label>
+            <select name="Gender">
+                <option value="1">Male</option>
+                <option value="0">Female</option>
+            </select>
+
+            <label>Married:</label>
+            <select name="Married">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+
+            <label>Applicant Income:</label>
+            <input type="number" name="ApplicantIncome" required>
+
+            <label>Loan Amount:</label>
+            <input type="number" name="LoanAmount" required>
+
+            <label>Credit History:</label>
+            <select name="Credit_History">
+                <option value="1">Good</option>
+                <option value="0">Bad</option>
+            </select>
+
+            <button type="submit">Predict</button>
+
+        </form>
+
+        {% if prediction_text %}
+            <h3 class="{% if 'Approved' in prediction_text %}approved{% else %}rejected{% endif %}">
+                {{ prediction_text }}
+            </h3>
+        {% endif %}
+    </div>
+
+</body>
+</html>
